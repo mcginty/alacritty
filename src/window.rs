@@ -18,6 +18,11 @@ use std::ops::Deref;
 use gl;
 use glutin::{self, EventsLoop, WindowBuilder, Event, CursorState, ControlFlow, ContextBuilder};
 use glutin::GlContext;
+use winit::os::macos::WindowBuilderExt;
+
+//use cocoa::appkit::{self, NSWindow};
+//use std::os::raw::c_void;
+//use cocoa::base::{BOOL, YES, NO};
 
 /// Window errors
 #[derive(Debug)]
@@ -186,10 +191,21 @@ impl Window {
 
         Window::platform_window_init();
         let window = WindowBuilder::new()
+            .with_full_size_content(true)
             .with_title(title);
         let context = ContextBuilder::new()
             .with_vsync(true);
+
+
         let window = ::glutin::GlWindow::new(window, context, &event_loop)?;
+
+        //let nswindow: *mut c_void = window.window().get_nswindow();
+        //let nswindow = nswindow as *mut ::cocoa::base::id;
+        //unsafe {
+        //    let masks = (*nswindow).styleMask();
+        //    //(*nswindow).setStyleMask_(masks | appkit::NSFullSizeContentViewWindowMask);
+        //    (*nswindow).setTitlebarAppearsTransparent_(YES);
+        //}
 
         /// Set OpenGL symbol loader
         gl::load_with(|symbol| window.get_proc_address(symbol) as *const _);
@@ -206,6 +222,7 @@ impl Window {
         };
 
         window.run_os_extensions();
+
 
         Ok(window)
     }

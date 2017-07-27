@@ -33,6 +33,7 @@ extern crate x11_dl;
 extern crate arraydeque;
 extern crate cgmath;
 extern crate copypasta;
+extern crate cocoa;
 extern crate errno;
 extern crate fnv;
 extern crate font;
@@ -47,6 +48,7 @@ extern crate serde_yaml;
 extern crate unicode_width;
 extern crate vte;
 extern crate xdg;
+extern crate winit;
 
 #[macro_use]
 pub mod macros;
